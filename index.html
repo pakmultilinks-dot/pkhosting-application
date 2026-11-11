@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PK Hosting Application - Hosting Plans, Domains and Quotes</title>
+<meta name="description" content="Browse real PK Hosting plans with live prices, check domain prices, compare plans and build a quote. Demo application with prices verified on pkhosting.com on 11 November 2026.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="assets/pkhosting-logo.png">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#top" id="brand-home">
+      <img src="assets/pkhosting-logo.png" alt="PK Hosting logo" class="brand-logo">
+      <span class="brand-text"><strong>PK Hosting</strong><small>Hosting in Pakistan</small></span>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+      <button class="nav-btn active" data-section="plans" type="button">Plans</button>
+      <button class="nav-btn" data-section="domains" type="button">Domains</button>
+      <button class="nav-btn" data-section="compare" type="button">Compare <span class="nav-count" id="compare-nav-count" hidden>0</span></button>
+      <button class="nav-btn" data-section="help" type="button">Help</button>
+      <button class="nav-btn quote-btn" data-section="quote" type="button">My Quote <span class="cart-badge" id="cart-count">0</span></button>
+    </nav>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">Menu</button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Web hosting in Pakistan, priced in rupees.</h1>
+      <p class="hero-sub">Browse every PK Hosting plan with the real prices from pkhosting.com, check domain prices, compare plans side by side, and build your quote. Free migration and free SSL on every shared plan.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="hero-find-plan" type="button">Find my plan</button>
+        <button class="btn btn-secondary" id="hero-browse-plans" type="button">Browse all plans</button>
+      </div>
+      <ul class="hero-facts">
+        <li>Free migration</li>
+        <li>Free SSL certificate</li>
+        <li>Daily backups</li>
+        <li>JazzCash, Easypaisa, bank transfer, card, PayPal</li>
+        <li>Support Mon-Fri, 9am-6pm PKT</li>
+      </ul>
+      <p class="hero-note">Prices checked live on pkhosting.com/pricing/ on 11 November 2026. Black Friday first-year prices; renewals are the full price. Add-ons and taxes extra.</p>
+    </div>
+  </section>
+
+  <!-- PLAN FINDER -->
+  <section class="section finder" id="finder-section">
+    <h2>Find my plan</h2>
+    <p class="section-intro">Answer four quick questions and I will point you at the right plan. Nothing is sent anywhere; the answers stay in your browser.</p>
+    <div class="quiz" id="quiz">
+      <div class="quiz-progress"><span id="quiz-step-label">Question 1 of 4</span><div class="quiz-bar"><div class="quiz-bar-fill" id="quiz-bar-fill"></div></div></div>
+      <div class="quiz-question" id="quiz-question"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" id="quiz-back" type="button" disabled>Back</button>
+        <button class="btn btn-ghost" id="quiz-restart" type="button">Start over</button>
+      </div>
+      <div class="quiz-result" id="quiz-result" hidden></div>
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section class="section" id="plans-section">
+    <h2>Hosting plans</h2>
+    <p class="section-intro">Every plan below uses the live price from pkhosting.com. Switch the view to see the renewal price instead of the Black Friday first-year price.</p>
+    <div class="plans-controls">
+      <div class="category-tabs" id="category-tabs" role="tablist" aria-label="Plan categories">
+        <button class="cat-tab active" data-category="shared" type="button" role="tab">Shared</button>
+        <button class="cat-tab" data-category="wordpress" type="button" role="tab">WordPress</button>
+        <button class="cat-tab" data-category="reseller" type="button" role="tab">Reseller</button>
+        <button class="cat-tab" data-category="cloud_vps" type="button" role="tab">Cloud VPS</button>
+        <button class="cat-tab" data-category="premium_vps" type="button" role="tab">Premium VPS</button>
+        <button class="cat-tab" data-category="dedicated" type="button" role="tab">Dedicated</button>
+        <button class="cat-tab" data-category="retainers" type="button" role="tab">Website Retainers</button>
+      </div>
+      <div class="billing-toggle" role="group" aria-label="Price view">
+        <span class="billing-label">Show prices as:</span>
+        <button class="billing-btn active" data-billing="first" type="button">First year (Black Friday)</button>
+        <button class="billing-btn" data-billing="renew" type="button">Renewal price</button>
+      </div>
+      <div class="plans-search">
+        <label for="plan-search">Search plans</label>
+        <input type="search" id="plan-search" placeholder="Try business, 50 GB, NVMe..." autocomplete="off">
+        <button class="btn btn-ghost btn-small" id="plan-search-clear" type="button">Clear</button>
+      </div>
+    </div>
+    <p class="category-note" id="category-note"></p>
+    <div class="plan-grid" id="plan-grid"></div>
+    <p class="plans-empty" id="plans-empty" hidden>No plan matches that search. Clear the search or pick another category.</p>
+  </section>
+
+  <!-- DOMAINS -->
+  <section class="section" id="domains-section">
+    <h2>Domain search</h2>
+    <p class="section-intro">Check the price of a domain name. This is a demo check only: it shows the real registration and renewal price from pkhosting.com, but it is not a live registry lookup, so it cannot confirm whether a name is truly free. Real availability and activation are confirmed by PK Hosting before registration.</p>
+    <form class="domain-form" id="domain-form">
+      <label for="domain-name">Domain name</label>
+      <input type="text" id="domain-name" placeholder="mybusiness" autocomplete="off" spellcheck="false">
+      <label for="domain-tld">Extension</label>
+      <select id="domain-tld"></select>
+      <button class="btn btn-primary" type="submit">Check domain</button>
+      <button class="btn btn-ghost" id="domain-clear" type="button">Clear</button>
+    </form>
+    <p class="form-error" id="domain-error" hidden></p>
+    <div class="domain-result" id="domain-result" hidden></div>
+    <h3>Popular domain prices</h3>
+    <div class="domain-table-wrap">
+      <table class="domain-table" id="domain-table">
+        <thead><tr><th>Extension</th><th>Registration</th><th>Renewal</th><th>Term</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <button class="btn btn-ghost" id="domain-show-more" type="button">Show all extensions</button>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="section" id="compare-section">
+    <h2>Compare plans</h2>
+    <p class="section-intro">Tick "Compare" on up to three plan cards and they appear here side by side. Prices shown are first-year Black Friday prices, with the renewal price underneath.</p>
+    <div class="compare-actions">
+      <button class="btn btn-ghost" id="compare-clear" type="button">Clear comparison</button>
+    </div>
+    <div class="compare-empty" id="compare-empty">No plans selected yet. Go to Plans, tick Compare on up to three cards, and they will show here.</div>
+    <div class="compare-table-wrap" id="compare-table-wrap" hidden>
+      <table class="compare-table" id="compare-table"></table>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="section" id="quote-section">
+    <h2>My quote</h2>
+    <p class="section-intro">Everything you add here builds a quote. Hosting is priced per year: the first year uses the Black Friday price and later years use the renewal price. Add-ons are charged monthly and shown as a yearly total. This is a demo quote, not a real order; nothing is charged and no order is placed with PK Hosting.</p>
+    <div class="quote-empty" id="quote-empty">Your quote is empty. Add a plan from the Plans section or a domain from the Domain search.</div>
+    <div class="quote-items" id="quote-items"></div>
+    <div class="quote-totals" id="quote-totals" hidden>
+      <div class="totals-row"><span>Due for the first year</span><strong id="total-first">Rs 0</strong></div>
+      <div class="totals-row"><span>Renews at, per year after that</span><strong id="total-renew">Rs 0</strong></div>
+      <p class="totals-note">Add-ons and taxes extra. Dedicated servers are starting budgets; the exact hardware, scope and renewal are confirmed in writing by PK Hosting before payment.</p>
+      <div class="quote-actions">
+        <button class="btn btn-ghost" id="quote-clear" type="button">Clear quote</button>
+        <button class="btn btn-secondary" id="quote-print" type="button">Print quote</button>
+        <button class="btn btn-secondary" id="quote-download" type="button">Download quote (.txt)</button>
+      </div>
+    </div>
+    <div class="quote-form-wrap" id="quote-form-wrap" hidden>
+      <h3>Request this quote</h3>
+      <p>Fill in your details and I will generate a quote reference you can send to PK Hosting. Your details stay in this browser; nothing is sent to any server.</p>
+      <form class="quote-form" id="quote-form" novalidate>
+        <div class="form-field">
+          <label for="q-name">Your name</label>
+          <input type="text" id="q-name" autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="q-email">Email</label>
+          <input type="email" id="q-email" autocomplete="email" placeholder="you@example.com">
+        </div>
+        <div class="form-field">
+          <label for="q-phone">Phone (optional)</label>
+          <input type="tel" id="q-phone" autocomplete="tel" placeholder="03xx xxxxxxx">
+        </div>
+        <div class="form-field">
+          <label for="q-notes">Notes for PK Hosting (optional)</label>
+          <textarea id="q-notes" rows="3" placeholder="Anything about your website, migration, or timeline."></textarea>
+        </div>
+        <p class="form-error" id="quote-form-error" hidden></p>
+        <button class="btn btn-primary" type="submit">Generate my quote reference</button>
+      </form>
+    </div>
+    <div class="quote-confirm" id="quote-confirm" hidden></div>
+    <div class="saved-quotes" id="saved-quotes" hidden>
+      <h3>Previous quotes on this device</h3>
+      <ul id="saved-quotes-list"></ul>
+      <button class="btn btn-ghost btn-small" id="saved-quotes-clear" type="button">Clear saved quotes</button>
+    </div>
+  </section>
+
+  <!-- HELP -->
+  <section class="section" id="help-section">
+    <h2>Help and contact</h2>
+    <p class="section-intro">Real answers from pkhosting.com, checked 11 November 2026.</p>
+    <div class="faq" id="faq">
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">What is the refund policy?</button>
+        <div class="faq-a" hidden><p>First-time shared and WordPress orders may be reviewed for a refund when you contact PK Hosting within 7 days of payment. It is a review, not a guaranteed refund. Approved refunds are processed in 7 to 10 business days.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">Do I get cPanel?</button>
+        <div class="faq-a" hidden><p>No. Shared hosting runs on the Hestia panel, not cPanel. The PK Hosting dashboard is at panel.pkhosting.com.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">Is migration really free?</button>
+        <div class="faq-a" hidden><p>Yes, free migration is a published feature on the shared, WordPress and reseller plans. PK Hosting moves your existing site for you.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">How do I pay?</button>
+        <div class="faq-a" hidden><p>In rupees by JazzCash, Easypaisa, bank transfer or card, and in US dollars by PayPal. Prices on this page are in Pakistani rupees.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">What backups do I get?</button>
+        <div class="faq-a" hidden><p>Daily backups are included on shared plans: 1-day retention on Personal, 3 days on Business, 5 days on Professional. Backups are kept on the hosting server. Keep your own off-server copy for anything you cannot afford to lose.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">Is there an uptime guarantee?</button>
+        <div class="faq-a" hidden><p>There is no contractual uptime SLA published unless one is agreed separately. The status page showed "Not measured" on all four services when last checked.</p></div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>Contact PK Hosting</h3>
+      <ul>
+        <li><strong>Phone:</strong> (042) 35692952, Mon-Fri 9am-6pm PKT</li>
+        <li><strong>Email:</strong> support@pkhosting.com</li>
+        <li><strong>Office:</strong> 231-B Main Boulevard, Phase 8 DHA, Lahore</li>
+        <li><strong>Website:</strong> <a href="https://www.pkhosting.com/" target="_blank" rel="noopener">pkhosting.com</a></li>
+        <li><strong>Panel:</strong> panel.pkhosting.com (Hestia)</li>
+      </ul>
+      <p class="contact-note">PK Hosting is a product of TechAbout (Private) Limited.</p>
+    </div>
+  </section>
+</main>
+
+<!-- COMPARE TRAY -->
+<div class="compare-tray" id="compare-tray" hidden>
+  <span id="compare-tray-text">0 plans selected for comparison</span>
+  <button class="btn btn-primary btn-small" id="compare-tray-go" type="button">Compare now</button>
+  <button class="btn btn-ghost btn-small" id="compare-tray-clear" type="button">Clear</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<footer class="site-footer">
+  <p>Demo application. Prices verified live on <a href="https://www.pkhosting.com/pricing/" target="_blank" rel="noopener">pkhosting.com/pricing/</a> on 11 November 2026. Black Friday first-year prices; renewals are the full price. Add-ons and taxes extra. This application is not the real PK Hosting checkout and no order is placed here.</p>
+  <p>Data: shared, WordPress, reseller, Cloud VPS, Premium VPS, dedicated servers, VPS add-ons and 40 domain extensions. Built 11 November 2026.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
